@@ -14,5 +14,5 @@ export type ProductType = {
 
   image_title: string;
 
-  price: string;
+  price: string | number;
 };

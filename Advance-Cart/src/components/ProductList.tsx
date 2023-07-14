@@ -1,12 +1,8 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ProductType } from "../types/type";
-
+import { addProduct } from "../redux/slice/CartSlice";
 const ProductList = ({ data }) => {
-  //  const dispatch=useDispatch()
-  //  const addTocart=(e)=>{
-  //  e.preventDeafault()
-
-  //  }
+  const dispatch = useDispatch();
 
   return (
     <div
@@ -29,7 +25,10 @@ const ProductList = ({ data }) => {
             <p className="text-sm text-center ">{item.name}</p>
             <div className="flex justify-between items-center mt-2 gap-10">
               <p className="text-sm  font-semibold ">(${item.price})</p>
-              <button className="btn px-4 bg-red-400 text-white rounded-md cursor-pointer">
+              <button
+                className="btn px-4 bg-red-400 text-white rounded-md cursor-pointer"
+                onClick={() => dispatch(addProduct(item))}
+              >
                 Buy
               </button>
             </div>
