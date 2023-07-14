@@ -5,14 +5,21 @@ import {
   incrementProduct,
   removerProduct,
 } from "../redux/slice/CartSlice";
+import { useEffect, useState } from "react";
 
 // import { useState } from "react";
 const Navbar = () => {
   const products = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
-  const totalPrice = products.map((item) => {
-    item.price * item.quantity;
-  });
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setTotal(
+      products.reduce(
+        (acc, curr) => acc + Number(curr.quantity * curr.price),
+        0
+      )
+    );
+  }, [products]);
 
   return (
     <div className="flex justify-between items-center px-2y h-16">
@@ -78,11 +85,11 @@ const Navbar = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-col justify-end items-center mt-4 font-bold text-lg ">
-                <p>Total: ${Number(prod.price) * prod.quantity}</p>
-              </div>
             </>
           ))}
+          <div className="flex flex-col justify-end items-center mt-4 font-bold text-lg ">
+            <p>Total: ${total.toFixed(2)}</p>
+          </div>
         </form>
       </dialog>
     </div>
