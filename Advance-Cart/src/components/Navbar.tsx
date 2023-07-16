@@ -8,8 +8,8 @@ import {
 import { useEffect, useState } from "react";
 
 // import { useState } from "react";
-const Navbar = () => {
-  const products = useSelector((state) => state.cart.products);
+const Navbar = ({ handleSearch, searchQuery }) => {
+  const products = useSelector((state: unknown) => state.cart.products);
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   useEffect(() => {
@@ -30,16 +30,18 @@ const Navbar = () => {
           name="text"
           className="w-full bg-gray-200 border-none outline-none rounded-lg p-1 shadow-md"
           placeholder="Search..."
+          onChange={handleSearch}
+          value={searchQuery}
         />
       </div>
 
       <button
         className="btn bg-blue-500 text-white px-4 py-1 rounded-lg"
-        onClick={() => window.my_modal_1.showModal()}
+        onClick={() => window.model.showModal()}
       >
         Shopping cart
       </button>
-      <dialog id="my_modal_1" className="modal">
+      <dialog id="model" className="modal">
         <form method="dialog" className="modal-box">
           <button className="btn px-4 bg-red-400 text-white rounded-md cursor-pointer text-left mb-2 ">
             X
@@ -63,26 +65,26 @@ const Navbar = () => {
                 </div>
                 <div className="flex flex-col justify-start items-center gap-2">
                   <div className="flex justify-start items-start gap-1">
-                    <button
-                      className=" bg-blue-500 text-white px-2  rounded-xl"
+                    <div
+                      className=" bg-blue-500 text-white px-2  rounded-xl cursor-pointer"
                       onClick={() => dispatch(incrementProduct(prod))}
                     >
                       +
-                    </button>
+                    </div>
                     <p className="text-lg font-bold">{prod.quantity}</p>
-                    <button
-                      className=" bg-red-500 text-white px-2  rounded-xl"
+                    <div
+                      className=" bg-red-500 text-white px-2  rounded-xl cursor-pointer"
                       onClick={() => dispatch(decrementProduct(prod))}
                     >
                       -
-                    </button>
+                    </div>
                   </div>
-                  <button
-                    className=" bg-red-500 text-white px-2 text-sm rounded-md"
+                  <div
+                    className=" bg-red-500 text-white px-2 text-sm rounded-md cursor-pointer"
                     onClick={() => dispatch(removerProduct(prod))}
                   >
                     Remove
-                  </button>
+                  </div>
                 </div>
               </div>
             </>
